@@ -19,6 +19,26 @@ public abstract class AbstractGravityEntity extends AbstractMovingEntity impleme
 		super(x, y, width, height, dx, dy, key);
 		//setDY(Gravity(getDY()));
 	}
+	public AbstractGravityEntity(double x, double y, double width, double height, double maxdy) {
+		super(x, y, width, height);
+		this.maxdy = maxdy;
+		//setDY(Gravity(getDY()));
+	}
+	public AbstractGravityEntity(double x, double y, double width, double height, String key, double maxdy) {
+		super(x, y, width, height, key);
+		this.maxdy = maxdy;
+		//setDY(Gravity(getDY()));
+	}
+	public AbstractGravityEntity(double x, double y, double width, double height, double dx, double dy, double maxdy) {
+		super(x, y, width, height, dx, dy);
+		this.maxdy = maxdy;
+		//setDY(Gravity(getDY()));
+	}
+	public AbstractGravityEntity(double x, double y, double width, double height, double dx, double dy,  String key, double maxdy) {
+		super(x, y, width, height, dx, dy, key);
+		this.maxdy = maxdy;
+		//setDY(Gravity(getDY()));
+	}
 	public void setGravC(double c){
 		this.c = c;
 	}
