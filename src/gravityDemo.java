@@ -78,13 +78,11 @@ public class gravityDemo {
 			if (Keyboard.isKeyDown(Keyboard.KEY_9)){
 				box.setGravC(.05); //changes gravity constant used for acceleration
 			}
-			if (box.getY() >= 480-box.getHeight() && box.getDY()>0){
-				System.out.println(box.getDY() + " "  + box.getY());
+			if (box.getY() >= 480-box.getHeight() && box.getDY()>0){ //tests leaving bottom of the screen will bounce off the bottom unless controlled
 				box.setY(480-box.getHeight());
 				if (box.getDY()<.25){
 					box.setDY(0);
 				}else{
-					System.out.println(box.getDY() + " "  + box.getY());
 					box.setDY(-(box.getDY()/1.5));
 				}
 			}
@@ -95,7 +93,7 @@ public class gravityDemo {
 			 */
 			//box.update(<integer>);
 			
-			//System.out.println("Colliding? "+ box.intersects(test));
+			System.out.println("Colliding? "+ box.intersects(test)); //tests collision
 			
 			box.draw();
 			test.draw();
