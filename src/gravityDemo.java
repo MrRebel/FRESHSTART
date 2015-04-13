@@ -61,7 +61,7 @@ public class gravityDemo {
 				box.setDX(-.1);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_4)){
-				box.setDY(-1);
+				box.setDY(-.1);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_5)){
 				box.setWidth(150);
