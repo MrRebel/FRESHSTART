@@ -1,6 +1,7 @@
 package entities;
 public abstract class AbstractGravityEntity extends AbstractMovingEntity implements GravityEntity {
 	protected double c = .05;
+	protected double maxdy = 5;
 	boolean first = true;
 	public AbstractGravityEntity(double x, double y, double width, double height) {
 		super(x, y, width, height);
@@ -21,11 +22,17 @@ public abstract class AbstractGravityEntity extends AbstractMovingEntity impleme
 	public void setGravC(double c){
 		this.c = c;
 	}
+	public void setMaxDY(double maxdy){
+		this.maxdy = maxdy;
+	}
 	public double getGravC(){
 		return c;
 	}
 	public boolean getFirst(){
 		return first;
+	}
+	public double getMaxDY(){
+		return maxdy;
 	}
 	
 	public double Gravity (double firstdy){
@@ -34,16 +41,10 @@ public abstract class AbstractGravityEntity extends AbstractMovingEntity impleme
 			return firstdy;
 		}
 		firstdy+=c;
-		if (firstdy>5){ 
-			firstdy=5;
+		if (firstdy>maxdy){ 
+			firstdy=maxdy;
 			return firstdy;
 		}
 		return firstdy;
 	}
-
-
-
-
-		
-
 }

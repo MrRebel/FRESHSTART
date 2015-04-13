@@ -4,7 +4,9 @@ public abstract class AbstractButtonEntity extends AbstractEntity implements But
 
 	public AbstractButtonEntity(double x, double y, double width, double height) {
 		super(x, y, width, height);
-		// TODO Auto-generated constructor stub
+	}
+	public AbstractButtonEntity(double x, double y, double width, double height, String key) {
+		super(x, y, width, height, key);
 	}
 	
 	public boolean inbounds (int mousex, int mousey){
