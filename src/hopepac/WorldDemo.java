@@ -64,7 +64,6 @@ public class WorldDemo {
 		glOrtho(0, 640, 480, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
 		
-		
 		while(!Display.isCloseRequested()){
 			//Render
 			glClear(GL_COLOR_BUFFER_BIT);
@@ -77,14 +76,14 @@ public class WorldDemo {
 				f.update(delta);
 				if (Mouse.isButtonDown(0) && x==0){
 					world.addmove(new Box(15,15,15,15));
-					world.set(2,1,1,.1);
+					world.returnmove(2).setDX(.1);
 					x=1;
 				}
 				
 				
 				if (Mouse.isButtonDown(1) && x==1){
 					world.removemove(world.returnmove(2));
-					world.set(2, 1, 1, 0);
+					world.returnmove(2).setDX(.1);
 					x=0;
 				}
 				if (Mouse.getX() >= f.getX() && Mouse.getX() <= f.getX()+f.getWidth() ){

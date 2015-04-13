@@ -16,7 +16,6 @@ public interface world {
 	public ScoreEntity returnscore(int get);
 	public BoundEntity returnbound(int get);
 	public ButtonEntity returnbutton(int get);
-	public void set (int etype, int num, int type, double set);
 	public void removeEntity(Entity remove);
 	public void removemove(MovingEntity remove);
 	public void removegrav(GravityEntity remove);

@@ -86,59 +86,6 @@ public abstract class AbstractWorld implements world {
 	public ButtonEntity returnbutton(int get){
 		return buttonworld.get(get);
 	}
-	public void set (int etype, int num, int type, double set){
-		if (etype == 1){
-			if (type==1){
-				this.world.get(num).setX(set);
-			}
-			if (type==2){
-				this.world.get(num).setY(set);
-			}
-			if (type==3){
-				this.world.get(num).setWidth(set);
-			}
-			if (type==4){
-				this.world.get(num).setHeight(set);
-			}
-		}
-		if (etype == 2){
-			if (type==1){
-				this.moveworld.get(num).setDX(set);
-			}
-			if (type==2){
-				this.moveworld.get(num).setDY(set);
-			}
-		}
-		if (etype == 3){
-			if (type == 1){
-				this.boundworld.get(num).setDistanceX(set);
-			}
-			if (type == 2){
-				this.boundworld.get(num).setDistanceY(set);
-			}
-		}
-		if (etype == 4){
-			if (type == 1){
-				this.scoreworld.get(num).setScore((int)set);
-			}
-		}
-	}
-	
-	public void set (int etype, int num, int type, double[] set){
-		if (etype == 1){
-			if (type == 5){
-				this.world.get(num).setLocation(set[0],set[1]);
-			}
-		}
-	}
-	public void set (int etype, int num, int type, String set){
-		if (etype == 1){
-			if (type ==6){
-				this.world.get(num).setTexture(set);
-			}
-		}
-	}
-
 	@Override
 	public void removeEntity(Entity remove) {
 		world.remove(remove);
