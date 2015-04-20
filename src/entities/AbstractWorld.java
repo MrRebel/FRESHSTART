@@ -67,23 +67,8 @@ public abstract class AbstractWorld implements world {
 			scoreworld.add((ScoreEntity) add);
 		}
 	}
-	public Entity returnEntity(int get){
+	public Entity getEntity(int get){
 		return world.get(get);
-	}
-	public MovingEntity returnmove(int get){
-		return moveworld.get(get);
-	}
-	public GravityEntity returngrav(int get){
-		return gravworld.get(get);
-	}
-	public ScoreEntity returnscore(int get){
-		return scoreworld.get(get);
-	}
-	public BoundEntity returnbound(int get){
-		return boundworld.get(get);
-	}
-	public ButtonEntity returnbutton(int get){
-		return buttonworld.get(get);
 	}
 	public void remove(Entity remove) {
 		world.remove(remove);
@@ -131,7 +116,7 @@ public abstract class AbstractWorld implements world {
 	
 	@Override
 	public void reset (){
-		this.world = orig;
+		world = orig;
 		moveworld = moveorig;
 		gravworld = gravorig;
 		boundworld = boundorig;

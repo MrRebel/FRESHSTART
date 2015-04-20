@@ -76,16 +76,14 @@ public class WorldDemo {
 			for (Entity f : worldfinaluse){
 				if (Mouse.isButtonDown(0) && !x){
 					world.add(new Box(15,15,15,15,"wood"));
-					//world.returnmove(2).setDX(.1);
 					x = !x;
 				}
 				
 				
 				if (Mouse.isButtonDown(1) && x){
-					world.remove(world.returnEntity(2));
+					world.remove(world.getEntity(2));
 					x = !x;
 				}
-				//f.update(delta);
 				f.draw();
 			}
 			
