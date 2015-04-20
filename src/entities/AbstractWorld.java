@@ -13,60 +13,59 @@ public abstract class AbstractWorld implements world {
 	protected List<ButtonEntity> buttonworld, buttonorig;
 	protected int length;
 	
-	public AbstractWorld (List<Entity> world, List<MovingEntity> moveworld, List<GravityEntity> gravworld, List<BoundEntity> boundworld, List<ScoreEntity> scoreworld, List<ButtonEntity> buttonworld, int length){
+	public AbstractWorld (List<Entity> world, int length){
 		this.world = new ArrayList <Entity> (length);
-		//this.world.addAll(world);
+		this.world.addAll(world);
 		this.orig = new ArrayList <Entity> (length);
-		//this.orig.addAll(world);
+		this.orig.addAll(world);
 		this.moveworld = new ArrayList <MovingEntity> (length);
-		this.moveworld.addAll(moveworld);
 		this.moveorig = new ArrayList <MovingEntity> (length);
-		this.moveorig.addAll(moveworld);
-		this.boundworld = new ArrayList <BoundEntity> (length);
-		//this.boundworld.addAll(boundworld);
-		this.boundorig = new ArrayList <BoundEntity> (length);
-		//this.boundorig.addAll(boundworld);
 		this.gravworld = new ArrayList <GravityEntity> (length);
-		this.gravworld.addAll(gravworld);
-		this.gravorig = new ArrayList<GravityEntity> (length);
-		this.gravorig.addAll(gravworld);
+		this.gravorig = new ArrayList <GravityEntity> (length);
 		this.scoreworld = new ArrayList <ScoreEntity> (length);
-		//this.scoreworld.addAll(scoreworld);
 		this.scoreorig = new ArrayList <ScoreEntity> (length);
-		//this.scoreorig.addAll(scoreworld);
-		this.buttonworld = new ArrayList<ButtonEntity> (length);
-		//this.buttonworld.addAll(buttonworld);
-		this.buttonorig = new ArrayList<ButtonEntity> (length);
-		//this.buttonorig.addAll(buttonworld);
+		for (Entity f : world){
+			if (f instanceof MovingEntity){
+				moveworld.add((MovingEntity) f);
+				moveorig.add((MovingEntity) f);
+			}
+			if (f instanceof GravityEntity){
+				gravworld.add((GravityEntity) f);
+				gravorig.add((GravityEntity) f);
+			}
+			if (f instanceof BoundEntity){
+				boundworld.add((BoundEntity) f);
+				boundorig.add((BoundEntity) f);
+			}
+			if (f instanceof ButtonEntity){
+				buttonworld.add((ButtonEntity) f);
+				buttonorig.add((ButtonEntity) f);
+			}
+			if (f instanceof ScoreEntity){
+				scoreworld.add((ScoreEntity) f);
+				scoreorig.add((ScoreEntity) f);
+			}
+		}
+
 		
 	}
-
-	@Override
-	public void addEntity(Entity add) {
+	public void add(Entity add){
 		world.add(add);
-
-	}
-	
-	public void addmove(MovingEntity add) {
-		world.add(add);
-		moveworld.add(add);
-	}
-	public void addgrav(GravityEntity add) {
-		world.add(add);
-		moveworld.add(add);
-		gravworld.add(add);
-	}
-	public void addscore(ScoreEntity add) {
-		world.add(add);
-		scoreworld.add(add);
-	}
-	public void addbound(BoundEntity add) {
-		world.add(add);
-		moveworld.add(add);
-	}
-	public void addbutton(ButtonEntity add) {
-		world.add(add);
-		buttonworld.add(add);
+		if (add instanceof MovingEntity){
+			moveworld.add((MovingEntity) add);
+		}
+		if (add instanceof GravityEntity){
+			gravworld.add((GravityEntity) add);
+		}
+		if (add instanceof BoundEntity){
+			boundworld.add((BoundEntity) add);
+		}
+		if (add instanceof ButtonEntity){
+			buttonworld.add((ButtonEntity) add);
+		}
+		if (add instanceof ScoreEntity){
+			scoreworld.add((ScoreEntity) add);
+		}
 	}
 	public Entity returnEntity(int get){
 		return world.get(get);
@@ -86,37 +85,23 @@ public abstract class AbstractWorld implements world {
 	public ButtonEntity returnbutton(int get){
 		return buttonworld.get(get);
 	}
-	@Override
-	public void removeEntity(Entity remove) {
+	public void remove(Entity remove) {
 		world.remove(remove);
-
-	}
-	@Override
-	public void removemove(MovingEntity remove){
-		world.remove(remove);
-		moveworld.remove(remove);
-	}
-	@Override
-	public void removegrav(GravityEntity remove){
-		world.remove(remove);
-		moveworld.remove(remove);
-		gravworld.remove(remove);
-	}
-	@Override
-	public void removescore(ScoreEntity remove){
-		world.remove(remove);
-		scoreworld.remove(remove);
-	}
-	@Override
-	public void removebound(BoundEntity remove){
-		world.remove(remove);
-		moveworld.remove(remove);
-		boundworld.remove(remove);
-	}
-	@Override
-	public void removebutton(ButtonEntity remove){
-		world.remove(remove);
-		buttonworld.remove(remove);
+		if (remove instanceof MovingEntity){
+			moveworld.remove((MovingEntity) remove);
+		}
+		if (remove instanceof GravityEntity){
+			gravworld.remove((GravityEntity) remove);
+		}
+		if (remove instanceof BoundEntity){
+			boundworld.remove((BoundEntity) remove);
+		}
+		if (remove instanceof ButtonEntity){
+			buttonworld.remove((ButtonEntity) remove);
+		}
+		if (remove instanceof ScoreEntity){
+			scoreworld.remove((ScoreEntity) remove);
+		}
 	}
 
 	@Override

@@ -34,13 +34,7 @@ public class WorldDemo {
 			lastFrame = currentTime;
 			return delta;
 		}
-	public List<MovingEntity> world1 = new ArrayList <MovingEntity> (16);
-	public List<GravityEntity> world2 = new ArrayList <GravityEntity> (16);
-	public World world;
-	public List<Entity> worldfinaluse = new ArrayList <Entity> (16);
-	public List <GravityEntity> worldfinaluseg = new ArrayList <GravityEntity> (16);
-	public Box ehb0ss = new Box(15,15,15,15);
-	int x = 0;
+	
 	
 	public WorldDemo(){
 		try{
@@ -51,11 +45,18 @@ public class WorldDemo {
 			e.printStackTrace();
 			
 		}
+		List<Entity> world1 = new ArrayList <Entity> (16);
+		List<GravityEntity> world2 = new ArrayList <GravityEntity> (16);
+		World world;
+		List<Entity> worldfinaluse = new ArrayList <Entity> (16);
+		List <GravityEntity> worldfinaluseg = new ArrayList <GravityEntity> (16);
+		Box ehb0ss = new Box(15,15,15,15,"wood");
+		boolean x = false;
 		
-		world1.add(new Box(30,30,30,30));
-		world1.add(new Box (15,50,15,15));
-		world2.add(new Grav(100,100,40,40));
-		world = new World (null, world1, world2, null, null, null, 16);
+		world1.add(new Box(30,30,30,30,"wood"));
+		world1.add(new Box (15,50,15,15, "wood"));
+		//world2.add(new Grav(100,100,40,40));
+		world = new World (world1, 16);
 		worldfinaluse = new CopyOnWriteArrayList<Entity>(world.giveArrayList());
 		
 		//Initialization code OpenGL
@@ -63,6 +64,7 @@ public class WorldDemo {
 		glLoadIdentity();
 		glOrtho(0, 640, 480, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
+		glEnable(GL_TEXTURE_2D);
 		
 		while(!Display.isCloseRequested()){
 			//Render
@@ -70,28 +72,21 @@ public class WorldDemo {
 			worldfinaluse = new CopyOnWriteArrayList<Entity>(world.giveArrayList());
 			worldfinaluseg = new CopyOnWriteArrayList<GravityEntity>(world.giveArrayListG());
 			int delta = getDelta();
-			
 	
 			for (Entity f : worldfinaluse){
-				f.update(delta);
-				if (Mouse.isButtonDown(0) && x==0){
-					world.addmove(new Box(15,15,15,15));
-					world.returnmove(2).setDX(.1);
-					x=1;
+				if (Mouse.isButtonDown(0) && !x){
+					world.add(new Box(15,15,15,15,"wood"));
+					//world.returnmove(2).setDX(.1);
+					x = !x;
 				}
 				
 				
-				if (Mouse.isButtonDown(1) && x==1){
-					world.removemove(world.returnmove(2));
-					world.returnmove(2).setDX(.1);
-					x=0;
+				if (Mouse.isButtonDown(1) && x){
+					world.remove(world.returnEntity(2));
+					x = !x;
 				}
-				if (Mouse.getX() >= f.getX() && Mouse.getX() <= f.getX()+f.getWidth() ){
-					world.removeEntity(new Box(15,15,15,15));
-					System.out.println(1);
-				}
+				//f.update(delta);
 				f.draw();
-				
 			}
 			
 			Display.update();
@@ -104,21 +99,32 @@ public class WorldDemo {
 	
 	public static class World extends AbstractWorld{
 
-		public World(List<Entity> world, List<MovingEntity> moveworld, List<GravityEntity> gravworld, List<BoundEntity> boundworld, List<ScoreEntity> scoreworld, List<ButtonEntity>buttonworld, int length){
-			super(world, moveworld, gravworld, boundworld, scoreworld, buttonworld, length);
+		public World(List<Entity> world, int length){
+			super(world, length);
 		}
 	}
 	
 	private static class Box extends AbstractMovingEntity{
 
 		
-		public Box(double x, double y, double width, double height) {
-			super(x, y, width, height);
+		public Box(double x, double y, double width, double height, String key) {
+			super(x, y, width, height, key);
+			setTexture(key);
 		}
 
 		public void draw() {
-			glLoadIdentity();
-			glRectd(x, y, x + width, y + height);
+			tex.bind();
+			
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);
+				glVertex2d(x,y);
+				glTexCoord2f(1,0);
+				glVertex2d(x+width,y);
+				glTexCoord2f(1, 1);
+				glVertex2d(x+width,y+height);
+				glTexCoord2f(0, 1);
+				glVertex2d(x,y+height);
+			glEnd();
 		}
 		
 	}
