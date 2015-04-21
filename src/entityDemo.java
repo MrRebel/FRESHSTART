@@ -105,6 +105,12 @@ public class entityDemo {
 		public void update(int delta) {
 			//left blank there is not update for this object
 		}
+
+		@Override
+		public void update() {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 	
 	public static void main(String[] args) {

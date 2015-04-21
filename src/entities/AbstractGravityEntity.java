@@ -1,43 +1,43 @@
+/**
+ * @author William Christensen
+ * @date 4/20/15
+ * 
+ * An Extension of Moving Entity that implements the 
+ */
 package entities;
 public abstract class AbstractGravityEntity extends AbstractMovingEntity implements GravityEntity {
 	protected double c = .05;
 	protected double maxdy = 5;
 	boolean first = true;
+	//simplest version of Gravity Entity
 	public AbstractGravityEntity(double x, double y, double width, double height) {
 		super(x, y, width, height);
-		//setDY(Gravity(getDY()));
 	}
 	public AbstractGravityEntity(double x, double y, double width, double height, String key) {
 		super(x, y, width, height, key);
-		//setDY(Gravity(getDY()));
 	}
 	public AbstractGravityEntity(double x, double y, double width, double height, double dx, double dy) {
 		super(x, y, width, height, dx, dy);
-		//setDY(Gravity(getDY()));
 	}
 	public AbstractGravityEntity(double x, double y, double width, double height, double dx, double dy,  String key) {
 		super(x, y, width, height, dx, dy, key);
-		//setDY(Gravity(getDY()));
 	}
 	public AbstractGravityEntity(double x, double y, double width, double height, double maxdy) {
 		super(x, y, width, height);
 		this.maxdy = maxdy;
-		//setDY(Gravity(getDY()));
 	}
 	public AbstractGravityEntity(double x, double y, double width, double height, String key, double maxdy) {
 		super(x, y, width, height, key);
 		this.maxdy = maxdy;
-		//setDY(Gravity(getDY()));
 	}
 	public AbstractGravityEntity(double x, double y, double width, double height, double dx, double dy, double maxdy) {
 		super(x, y, width, height, dx, dy);
 		this.maxdy = maxdy;
-		//setDY(Gravity(getDY()));
 	}
+	// most robust version of GravityEntity
 	public AbstractGravityEntity(double x, double y, double width, double height, double dx, double dy,  String key, double maxdy) {
 		super(x, y, width, height, dx, dy, key);
 		this.maxdy = maxdy;
-		//setDY(Gravity(getDY()));
 	}
 	public void setGravC(double c){
 		this.c = c;

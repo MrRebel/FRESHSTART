@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.lwjgl.input.Mouse;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.*;
 import org.lwjgl.*;
 
@@ -22,19 +23,6 @@ import entities.ScoreEntity;
 
 
 public class WorldDemo {
-	private long lastFrame;
-	
-		private long getTime(){
-			return (Sys.getTime() * 1000) / Sys.getTimerResolution();
-		}
-	
-		private int getDelta(){
-			long currentTime=getTime();
-			int delta = (int) (currentTime - lastFrame);
-			lastFrame = currentTime;
-			return delta;
-		}
-	
 	
 	public WorldDemo(){
 		try{
@@ -55,7 +43,7 @@ public class WorldDemo {
 		
 		world1.add(new Box(30,30,30,30,"wood"));
 		world1.add(new Box (15,50,15,15, "wood"));
-		//world2.add(new Grav(100,100,40,40));
+		world1.add(new Grav(100,100,40,40));
 		world = new World (world1, 16);
 		worldfinaluse = new CopyOnWriteArrayList<Entity>(world.giveArrayList());
 		
@@ -66,12 +54,12 @@ public class WorldDemo {
 		glMatrixMode(GL_MODELVIEW);
 		glEnable(GL_TEXTURE_2D);
 		
+		
 		while(!Display.isCloseRequested()){
 			//Render
 			glClear(GL_COLOR_BUFFER_BIT);
 			worldfinaluse = new CopyOnWriteArrayList<Entity>(world.giveArrayList());
 			worldfinaluseg = new CopyOnWriteArrayList<GravityEntity>(world.giveArrayListG());
-			int delta = getDelta();
 	
 			for (Entity f : worldfinaluse){
 				if (Mouse.isButtonDown(0) && !x){
@@ -84,7 +72,17 @@ public class WorldDemo {
 					world.remove(world.getEntity(2));
 					x = !x;
 				}
+				
+				if (Keyboard.isKeyDown(Keyboard.KEY_1)){
+					((MovingEntity) world.getEntity(0)).setDY(.1);
+				}
 				f.draw();
+				/*if (f.getTextureKey()==""){
+					
+				}else{
+					f.getTexture().release();
+				}*/
+				f.update();
 			}
 			
 			Display.update();
@@ -111,8 +109,8 @@ public class WorldDemo {
 		}
 
 		public void draw() {
+			glLoadIdentity();
 			tex.bind();
-			
 			glBegin(GL_QUADS);
 				glTexCoord2f(0, 0);
 				glVertex2d(x,y);
@@ -123,6 +121,7 @@ public class WorldDemo {
 				glTexCoord2f(0, 1);
 				glVertex2d(x,y+height);
 			glEnd();
+			tex.bindNone();
 		}
 		
 	}

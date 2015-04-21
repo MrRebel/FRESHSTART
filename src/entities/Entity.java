@@ -12,6 +12,7 @@ import org.newdawn.slick.opengl.Texture;
 public interface Entity {
 	public void draw ();
 	public void update (int delta);
+	public void update ();
 	public void setLocation (double x, double y);
 	public void setX (double x);
 	public void setY (double y);
