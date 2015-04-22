@@ -1,2 +1,3 @@
 # FRESHSTART
-this is a repo for the purpose of testing the FRESHSTART game engine
+FRESHSTART is an implementation of lwjgl and slick2d into a more robust
+and user friendly OpenGL game engine.
