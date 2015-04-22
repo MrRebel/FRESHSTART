@@ -2,7 +2,8 @@
  * @author William Christensen
  * @date 4/20/15
  * 
- * An Extension of Moving Entity that implements the 
+ * An Extension of MovingEntity that implements the use of 
+ * a constant acceleration in the Y to simulate Gravity.
  */
 package entities;
 public abstract class AbstractGravityEntity extends AbstractMovingEntity implements GravityEntity {
@@ -24,7 +25,7 @@ public abstract class AbstractGravityEntity extends AbstractMovingEntity impleme
 	}
 	public AbstractGravityEntity(double x, double y, double width, double height, double maxdy) {
 		super(x, y, width, height);
-		this.maxdy = maxdy;
+		this.maxdy = maxdy;//sets maxdy in object to given maxdy
 	}
 	public AbstractGravityEntity(double x, double y, double width, double height, String key, double maxdy) {
 		super(x, y, width, height, key);
@@ -39,19 +40,19 @@ public abstract class AbstractGravityEntity extends AbstractMovingEntity impleme
 		super(x, y, width, height, dx, dy, key);
 		this.maxdy = maxdy;
 	}
-	public void setGravC(double c){
+	public void setGravC(double c){//set the acceleration constant
 		this.c = c;
 	}
-	public void setMaxDY(double maxdy){
+	public void setMaxDY(double maxdy){//set the max dy value
 		this.maxdy = maxdy;
 	}
-	public double getGravC(){
+	public double getGravC(){//returns c value
 		return c;
 	}
-	public boolean getFirst(){
+	public boolean getFirst(){// returns if it is the first time it is being used
 		return first;
 	}
-	public double getMaxDY(){
+	public double getMaxDY(){// returns maxdy value
 		return maxdy;
 	}
 	
