@@ -4,6 +4,8 @@
  * 
  * A Class implementing the Entity Interface allowing the user to 
  * change the appearance and location of the object.
+ * This class is derived from code made by Oskar Veerhoek
+ * source code can be found at http://thecodinguniverse.com/lwjgl-entities/
  */
 package entities;
 
@@ -98,11 +100,11 @@ public abstract class AbstractEntity implements Entity{
 	}
 
 	@Override
-	public boolean intersects(Entity other) { //collision detction
+	public boolean intersects(Entity other) { //collision detection
 		hitbox.setBounds((int)x, (int)y, (int) width, (int) height);
 		return hitbox.intersects(other.getX(), other.getY(), other.getWidth(), other.getHeight());
 	}
-	//uses slick2d to create a texture to be used in the entity
+	//uses slick2d to create a texture to be used in the entity this method is derived from tutorial by Oskar Veerhoek source can by found at http://thecodinguniverse.com/lwjgl-textures/
 	private TextureImpl textureLoader(String string){
 		try{
 			return (TextureImpl) TextureLoader.getTexture("PNG", new FileInputStream(new File("res/" + string + ".png"))); // returns texture
