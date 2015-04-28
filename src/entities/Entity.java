@@ -2,7 +2,9 @@
  * @author William
  * @date 9/3/15
  * 
- * this in and interface creating an object Entity
+ * This is an interface creating an object Entity to be used to make things appear on the screen
+ * This class is derived from code made by Oskar Veerhoek
+ * source code can be found at http://thecodinguniverse.com/lwjgl-entities/
  */
 
 package entities;

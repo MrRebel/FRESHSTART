@@ -19,7 +19,7 @@ import entities.ButtonEntity;
 import entities.Entity;
 import entities.GravityEntity;
 import entities.MovingEntity;
-import entities.ScoreEntity;
+import entities.WordEntity;
 
 
 public class WorldDemo {
