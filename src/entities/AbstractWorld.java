@@ -9,7 +9,7 @@ public abstract class AbstractWorld implements world {
 	protected List<MovingEntity> moveworld, moveorig;
 	protected List<GravityEntity> gravworld, gravorig;
 	protected List<BoundEntity> boundworld, boundorig;
-	protected List<ScoreEntity> scoreworld, scoreorig;
+	protected List<WordEntity> wordworld, wordorig;
 	protected List<ButtonEntity> buttonworld, buttonorig;
 	protected int length;
 	
@@ -22,8 +22,8 @@ public abstract class AbstractWorld implements world {
 		this.moveorig = new ArrayList <MovingEntity> (length);
 		this.gravworld = new ArrayList <GravityEntity> (length);
 		this.gravorig = new ArrayList <GravityEntity> (length);
-		this.scoreworld = new ArrayList <ScoreEntity> (length);
-		this.scoreorig = new ArrayList <ScoreEntity> (length);
+		this.wordworld = new ArrayList <WordEntity> (length);
+		this.wordorig = new ArrayList <WordEntity> (length);
 		for (Entity f : world){
 			if (f instanceof MovingEntity){
 				moveworld.add((MovingEntity) f);
@@ -41,9 +41,9 @@ public abstract class AbstractWorld implements world {
 				buttonworld.add((ButtonEntity) f);
 				buttonorig.add((ButtonEntity) f);
 			}
-			if (f instanceof ScoreEntity){
-				scoreworld.add((ScoreEntity) f);
-				scoreorig.add((ScoreEntity) f);
+			if (f instanceof WordEntity){
+				wordworld.add((WordEntity) f);
+				wordorig.add((WordEntity) f);
 			}
 		}
 
@@ -63,8 +63,8 @@ public abstract class AbstractWorld implements world {
 		if (add instanceof ButtonEntity){
 			buttonworld.add((ButtonEntity) add);
 		}
-		if (add instanceof ScoreEntity){
-			scoreworld.add((ScoreEntity) add);
+		if (add instanceof WordEntity){
+			wordworld.add((WordEntity) add);
 		}
 	}
 	public Entity getEntity(int get){
@@ -84,8 +84,8 @@ public abstract class AbstractWorld implements world {
 		if (remove instanceof ButtonEntity){
 			buttonworld.remove((ButtonEntity) remove);
 		}
-		if (remove instanceof ScoreEntity){
-			scoreworld.remove((ScoreEntity) remove);
+		if (remove instanceof WordEntity){
+			wordworld.add((WordEntity) remove);
 		}
 	}
 
@@ -104,8 +104,8 @@ public abstract class AbstractWorld implements world {
 	public List<MovingEntity> giveArrayListM(){
 		return moveworld;
 	}
-	public List<ScoreEntity> giveArrayListS(){
-		return scoreworld;
+	public List<WordEntity> giveArrayListW(){
+		return wordworld;
 	}
 	public List<BoundEntity> giveArrayListBo(){
 		return boundworld;
@@ -121,7 +121,7 @@ public abstract class AbstractWorld implements world {
 		gravworld = gravorig;
 		boundworld = boundorig;
 		buttonworld = buttonorig;
-		scoreworld = scoreorig;
+		wordworld = wordorig;
 	}
 
 }

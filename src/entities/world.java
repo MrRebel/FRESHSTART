@@ -11,7 +11,7 @@ public interface world {
 	public List<Entity> giveArrayList();
 	public List<MovingEntity> giveArrayListM();
 	public List<GravityEntity> giveArrayListG();
-	public List<ScoreEntity> giveArrayListS();
+	public List<WordEntity> giveArrayListW();
 	public List<BoundEntity> giveArrayListBo();
 	public List<ButtonEntity> giveArrayListBu();
 	public void reset();

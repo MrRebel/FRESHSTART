@@ -43,7 +43,7 @@ public abstract class AbstractGravityEntity extends AbstractMovingEntity impleme
 	public void setGravC(double c){//set the acceleration constant
 		this.c = c;
 	}
-	public void setMaxDY(double maxdy){//set the max dy value
+	public void setMaxDY(double maxdy){//set the maxdy value
 		this.maxdy = maxdy;
 	}
 	public double getGravC(){//returns c value

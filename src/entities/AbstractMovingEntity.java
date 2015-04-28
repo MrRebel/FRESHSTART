@@ -5,6 +5,8 @@
  * A class implementing the MovingEntity Interface that extends Abstract entity mainly allowing 
  * ability to set a delta y and x using with an option using an internal or external clock
  * to determine the actual space in between each movement.
+ * This code is derived from code made by Oskar Veerhoek
+ * source code can be found here http://thecodinguniverse.com/lwjgl-entities/ and the youtube video https://www.youtube.com/watch?v=-LwBWysU-FY
  */
 package entities;
 
@@ -58,6 +60,10 @@ public abstract class AbstractMovingEntity extends AbstractEntity implements Mov
 	public void setDY(double dy){ // sets dy
 		this.dy = dy;
 	}
+	
+	/**
+	 * here down source can be found from Oskar Veerhoek at http://thecodinguniverse.com/lwjgl-frame-rate-independent-movement/
+	 */
 	private long lastFrame;// lastframe variable instantiated
 	
 	private long getTime(){ // gets time for internal clock calculation
