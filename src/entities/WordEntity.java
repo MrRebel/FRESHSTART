@@ -10,7 +10,7 @@ public interface WordEntity extends Entity {
 	public void setWord(String score);
 	public void setFont(String font);
 	public void setFontEffect(int type);
-	public int getScore();
+	public String getWord();
 	public String getFont();
 	public int getFontEffect();
 }

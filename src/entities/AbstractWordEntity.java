@@ -57,6 +57,9 @@ public abstract class AbstractWordEntity extends AbstractEntity implements WordE
 	public String getWord(){ //returns word
 		return word;
 	}
+	public String getFont(){
+		return fontName;
+	}
 	public int getFontEffect(){
 		return type;
 	}
@@ -66,11 +69,11 @@ public abstract class AbstractWordEntity extends AbstractEntity implements WordE
 		font = new TrueTypeFont(awtFont, false);
 	 
 		try {
-			InputStream inputStream	= ResourceLoader.getResourceAsStream("Library/Fonts/" + key + ".ttf");
+			InputStream inputStream	= ResourceLoader.getResourceAsStream("/Library/Fonts/" + key + ".ttf");
 	 
-			Font awtFont2 = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+			Font awtFont2 = Font.createFont(Font.PLAIN, inputStream);
 			awtFont2 = awtFont2.deriveFont(24f);
-			font = new TrueTypeFont(awtFont2, false);
+			font = new TrueTypeFont(awtFont, true);
 	 
 		} catch (Exception e) {
 			e.printStackTrace();
