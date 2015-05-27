@@ -23,9 +23,8 @@ public class WordDemo {
 			
 		}
 		
-		WordEntity box = new Box (15,15,100,100, "Times New Roman"); //changing box
+		WordEntity box = new Box (15,15, "Hello World"); //changing box
 		
-		WordEntity test = new Box (200,200,100,100, "Times New Roman"); //reference box
 		//Set up Window
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -34,7 +33,7 @@ public class WordDemo {
 		glEnable(GL_TEXTURE_2D);        
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_LIGHTING);
-		//glEnable(GL_BLEND);
+		glEnable(GL_BLEND);
 	    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
 		//code loop if the window is closed the loop will end
@@ -44,26 +43,20 @@ public class WordDemo {
 			//code in loop
 			//assures reset of all attributes
 			//changes to attributes
-			/*
+			box.setLocation(0,0);
+			box.setWidth(100);
+			box.setHeight(100);
+			box.setWord("Hello World ");
 			if (Keyboard.isKeyDown(Keyboard.KEY_1)){
+				box.setWord("I can also be a score watch 500");
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_2)){
+				box.setX(150);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_3)){
+				box.setY(150);
 			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_4)){
-			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_5)){
-			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_6)){
-			}
-			if (Keyboard.isKeyDown(Keyboard.KEY_7)){
-				box.setTexture("texture");
-			}
-			*/
 			box.draw();
-			
-			System.out.println("Colliding? "+ box.intersects(test));
 			
 			Display.update();
 			Display.sync(60);
@@ -74,15 +67,14 @@ public class WordDemo {
 	//box object
 	private static class Box extends AbstractWordEntity{ 
 		
-		public Box(double x, double y, double width, double height, String fontName) {
-			super(x, y, width, height, fontName);
+		public Box(double x, double y, String word) {
+			super(x, y, word);
 		}
 
 		@Override
 		//draw 
 		public void draw() {
-			Color.white.bind();
-			font.drawString(0, 0, "Hello World", Color.yellow);
+			font.drawString((int)x, (int)y, word, Color.yellow);
 		}
 
 		@Override

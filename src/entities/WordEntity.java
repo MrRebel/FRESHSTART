@@ -6,10 +6,15 @@
  */
 package entities;
 
+import java.util.Hashtable;
+
+import org.newdawn.slick.TrueTypeFont;
+
 public interface WordEntity extends Entity {
 	public void setWord(String score);
 	public void setFont(String font);
 	public void setFontEffect(int type);
+	public void setFontPreloaded();
 	public String getWord();
 	public String getFont();
 	public int getFontEffect();

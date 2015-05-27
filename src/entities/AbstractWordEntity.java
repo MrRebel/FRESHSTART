@@ -8,52 +8,62 @@ package entities;
 
 import java.awt.Font;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Hashtable;
 
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.util.ResourceLoader;
 
+import preload.loadText;
+
 public abstract class AbstractWordEntity extends AbstractEntity implements WordEntity{
 
-	protected int type;
-	protected String fontName = "Times New Roman";
-	protected String word;
-	protected TrueTypeFont font;
+	protected static int type = Font.PLAIN;
+	protected static String fontName = "Times New Roman";
+	protected String word = "";
+	protected static TrueTypeFont font;
+	protected HashMap<String,TrueTypeFont> preloader = new HashMap<String,TrueTypeFont>();
+	TrueTypeFont a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,space,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,one,two,three,four,five,six,seven,eight,nine,zero,qm,pm,cm;	
+	TrueTypeFont[] letters ={
+			a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,space,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,one,two,three,four,five,six,seven,eight,nine,zero,qm,pm,cm
+			};
+	String[] lvalues ={
+			"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","space","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","1","2","3","4","5","6","7","8","9","0","?",".",","	
+			};
 	//simple implementation
-	public AbstractWordEntity(double x, double y, double width, double height, String word) {
-		super(x, y, width, height);
+	public AbstractWordEntity(double x, double y, String word) {
+		super(x, y, font.getWidth(word), font.getHeight(word));
 		this.word = word;
-		font = fontLoader(fontName);
 	}
-	public AbstractWordEntity(double x, double y, double width, double height, String key, String word) {
-		super(x, y, width, height, key);
+	public AbstractWordEntity(double x, double y, String key, String word) {
+		super(x, y, font.getWidth(word), font.getHeight(word), key);
 		this.word = word;
-		font = fontLoader(fontName);
 	}
-	public AbstractWordEntity(double x, double y, double width, double height, String word, String fontName, int type) {
-		super(x, y, width, height);
+	public AbstractWordEntity(double x, double y, String word, String fontName, int type) {
+		super(x, y, font.getWidth(word), font.getHeight(word));
 		this.word = word;
 		this.fontName = fontName;
 		this.type = type;
-		font = fontLoader(fontName);
 	}
 	//robust textured and font implementation
-	public AbstractWordEntity(double x, double y, double width, double height, String key, String word, String fontName, int type) {
-		super(x, y, width, height, key);
+	public AbstractWordEntity(double x, double y, String key, String word, String fontName, int type) {
+		super(x, y, font.getWidth(word), font.getHeight(word), key);
 		this.word = word;
 		this.fontName = fontName;
 		this.type = type;
-		font = fontLoader(fontName);
 	}
 	public void setWord(String word){ // sets word
 		this.word = word;
 	}
-	public void setFont(String fontName){
+	public void setFont(String fontName, int type){
 		this.fontName = fontName;
-		font = fontLoader(this.fontName);
+		setWidth(font.getWidth(word));
+		setHeight(font.getHeight(word));
 	}
 	public void setFontEffect(int type){
 		this.type = type;
 	}
+	
 	public String getWord(){ //returns word
 		return word;
 	}
@@ -63,11 +73,32 @@ public abstract class AbstractWordEntity extends AbstractEntity implements WordE
 	public int getFontEffect(){
 		return type;
 	}
-	
-	private TrueTypeFont fontLoader(String key){ // derived from code found at http://ninjacave.com/slickutil3
-		Font awtFont = new Font("Times New Roman", type, 24);
+	private void preload(String[] fontNames, int[] types){
+		for(String f: fontNames){
+			for(int g: types){
+				String temp = "";
+				if(g == Font.BOLD){
+					temp = "bold";
+				}
+				else if (g == Font.ITALIC){
+					temp = "italic";
+				}
+				for (int i = 0; i < letters.length; i++) {
+					preloader.put(lvalues[i] + f + temp,fontLoader(f,letters[i],g));
+				}
+			}
+		}
+	}
+	private TrueTypeFont[] loadText(String fontName, int type){
+		for (int i = 0; i < letters.length; i++) {
+			letters[i]= fontLoader(fontName,letters[i],type);
+		}
+		return letters;
+	}
+	private static TrueTypeFont fontLoader(String key, TrueTypeFont font, int type){ // derived from code found at http://ninjacave.com/slickutil3
+		
+		Font awtFont = new Font(key, type, 24);
 		font = new TrueTypeFont(awtFont, false);
-	 
 		try {
 			InputStream inputStream	= ResourceLoader.getResourceAsStream("/Library/Fonts/" + key + ".ttf");
 	 
