@@ -94,7 +94,7 @@ public abstract class AbstractEntity implements Entity{
 	public String getTextureKey(){ // a method for returning Texture Key
 		return key;
 	}
-	public Texture getTexture(){ // a method for returning Texture
+	public TextureImpl getTexture(){ // a method for returning Texture
 		tex = textureLoader(key);
 		return tex;
 	}

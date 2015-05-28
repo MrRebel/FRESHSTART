@@ -70,7 +70,7 @@ public abstract class AbstractMovingEntity extends AbstractEntity implements Mov
 		return (Sys.getTime() * 1000) / Sys.getTimerResolution();
 	}
 
-	private int getDelta(){ // calculation for internal clock
+	public int getDelta(){ // calculation for internal clock
 		long currentTime=getTime();
 		int delta = (int) (currentTime - lastFrame);
 		lastFrame = currentTime;

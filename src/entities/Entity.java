@@ -10,6 +10,7 @@
 package entities;
 
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureImpl;
 
 public interface Entity {
 	public void draw ();
@@ -26,6 +27,6 @@ public interface Entity {
 	public double getWidth();
 	public double getHeight();
 	public String getTextureKey();
-	public Texture getTexture();
+	public TextureImpl getTexture();
 	public boolean intersects (Entity other);
 }

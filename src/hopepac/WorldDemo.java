@@ -72,7 +72,9 @@ public class WorldDemo {
 					world.remove(world.getEntity(2));
 					x = !x;
 				}
-				
+				if (Keyboard.isKeyDown(Keyboard.KEY_7)){
+					world.getEntity(0).setTexture("texture");
+				}
 				if (Keyboard.isKeyDown(Keyboard.KEY_1)){
 					((MovingEntity) world.getEntity(0)).setDY(.1);
 				}

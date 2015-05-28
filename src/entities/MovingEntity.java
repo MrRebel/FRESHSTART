@@ -14,4 +14,5 @@ public interface MovingEntity extends Entity {
 	public void setDY(double dy);
 	public double getDX();
 	public double getDY();
+	public int getDelta();
 }
