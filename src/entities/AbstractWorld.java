@@ -24,6 +24,8 @@ public abstract class AbstractWorld implements world {
 		this.gravorig = new ArrayList <GravityEntity> (length);
 		this.wordworld = new ArrayList <WordEntity> (length);
 		this.wordorig = new ArrayList <WordEntity> (length);
+		this.boundworld = new ArrayList <BoundEntity> (length);
+		this.boundorig = new ArrayList <BoundEntity> (length);
 		for (Entity f : world){
 			if (f instanceof MovingEntity){
 				moveworld.add((MovingEntity) f);

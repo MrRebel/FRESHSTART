@@ -16,17 +16,17 @@ public abstract class AbstractBoundEntity extends AbstractMovingEntity implement
 		this.distancex = distancex;
 		this.distancey = distancey;
 	}
-	public AbstractBoundEntity(double x, double y, double width, double height, double distancex, double distancey, boolean bound) {
+	public AbstractBoundEntity(double x, double y, double width, double height, double distancex, double distancey, Entity other) {
 		super(x, y, width, height);
 		this.distancex = distancex;
 		this.distancey = distancey;
-		this.bound = bound;
+		this.other = other;
 	}
-	public AbstractBoundEntity(double x, double y, double width, double height, String key, double distancex, double distancey, boolean bound) {
+	public AbstractBoundEntity(double x, double y, double width, double height, String key, double distancex, double distancey, Entity other) {
 		super(x, y, width, height, key);
 		this.distancex = distancex;
 		this.distancey = distancey;
-		this.bound = bound;
+		this.other = other;
 	}
 	public AbstractBoundEntity(double x, double y, double width, double height, double dx, double dy, double distancex, double distancey) {
 		super(x, y, width, height, dx, dy);
