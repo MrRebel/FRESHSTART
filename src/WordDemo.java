@@ -1,6 +1,8 @@
 
 import static org.lwjgl.opengl.GL11.*; //Import GL11 for 2d graphics
 
+import java.awt.Font;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;//import use of keyboard
 import org.lwjgl.opengl.*;
@@ -22,9 +24,10 @@ public class WordDemo {
 			e.printStackTrace();
 			
 		}
-		
+		String[] fonts = { "Times New Roman" };
+		int[] types = {Font.PLAIN};
 		WordEntity box = new Box (15,15, "Hello World"); //changing box
-		
+		box.setFontPreloaded(fonts,types);
 		//Set up Window
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -56,8 +59,9 @@ public class WordDemo {
 			if (Keyboard.isKeyDown(Keyboard.KEY_3)){
 				box.setY(150);
 			}
+			System.out.println("lol");
 			box.draw();
-			
+			System.out.println("rek");
 			Display.update();
 			Display.sync(60);
 		}
@@ -69,12 +73,6 @@ public class WordDemo {
 		
 		public Box(double x, double y, String word) {
 			super(x, y, word);
-		}
-
-		@Override
-		//draw 
-		public void draw() {
-			font.drawString((int)x, (int)y, word, Color.yellow);
 		}
 
 		@Override
