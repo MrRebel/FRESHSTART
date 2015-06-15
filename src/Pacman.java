@@ -78,7 +78,7 @@ public class Pacman{
 		Entity save5 = new FourWayBlock(10,10,savestate);
 		String[] fonts = {"Times New Roman"};
 		ActionListener taskPerformer = new Timers();
-		String saver = "scatter";
+		boolean check = true;
 		Timer timer = new Timer(7000, taskPerformer);
 		int[] types = {Font.PLAIN};
 		world.add(new Words(10,10,"p1 score " + score));
@@ -131,10 +131,14 @@ public class Pacman{
 			if (x>13){
 				x=0;
 			}
-			//String temo = ((Timers) taskPerformer).getStatus();
-			//if ((!temo.equals(saver))){
-				//((Timer) taskPerformer).setDelay(30000);
-			//}
+			String temo = ((Timers) taskPerformer).getStatus();
+			if (temo.equals("chase")&&check){
+				timer.setDelay(30000);
+				check = false;
+			}else if (temo.equals("scatter")&&!check){
+				timer.setDelay(7000);
+				check = true;
+			}
 			for (Entity f: worldfinaluse){
 				glColor3f(1f,1f,1f);
 				if (f instanceof Pman){
@@ -154,7 +158,7 @@ public class Pacman{
 					}
 					for (Entity g: worldfinaluse){
 						if (g instanceof Ghost){
-							//((Ghost)g).setStatus(temo);
+							((Ghost)g).setStatus(temo);
 							if(((Ghost)g).getName().equals("blinky")){
 								for(Entity h: worldfinaluse){
 									if(h instanceof FourWayBlock){
@@ -370,14 +374,22 @@ public class Pacman{
 							}
 						}
 					}
-					if ((((Pman)f).getChangeDirection().equals("right"))){
-						if((((Pman)f).getDirection().equals("left"))||(((Pman)f).getDirection().equals(""))){
+					if (((Pman)f).getChangeDirection().equals("right")){
+						if((((Pman)f).getDirection().equals("left"))){
 							((Pman)f).setDirection(((Pman)f).getChangeDirection());
 							((MovingEntity)f).setDY(0);
 							((MovingEntity)f).setDX(.1);
 							f.setY(Math.round(f.getY()));
 							pacmanAniMain=pacmanAniRight;
-						}else if ((((Pman)f).getDirection().equals("right"))){
+						}else if (((Pman)f).getDirection().equals("")){
+							((Pman)f).setDirection(((Pman)f).getChangeDirection());
+							((MovingEntity)f).setDY(0);
+							((MovingEntity)f).setDX(.1);
+							f.setY(Math.round(f.getY()));
+							pacmanAniMain=pacmanAniRight;
+							timer.start();
+						}
+						else if (((Pman)f).getDirection().equals("right")){
 							// intentionally blank
 						}else{
 							for(Entity g: worldfinaluse){
@@ -400,13 +412,20 @@ public class Pacman{
 							}
 						}
 					}
-					else if ((((Pman)f).getChangeDirection().equals("left"))){
-						if((((Pman)f).getDirection().equals("right"))||(((Pman)f).getDirection().equals(""))){
+					else if (((Pman)f).getChangeDirection().equals("left")){
+						if((((Pman)f).getDirection().equals("right"))){
 							((Pman)f).setDirection(((Pman)f).getChangeDirection());
 							((MovingEntity)f).setDY(0);
 							((MovingEntity)f).setDX(-.1);
 							pacmanAniMain=pacmanAniLeft;
-						}else if ((((Pman)f).getDirection().equals("left"))){
+						}else if (((Pman)f).getDirection().equals("")){
+							((Pman)f).setDirection(((Pman)f).getChangeDirection());
+							((MovingEntity)f).setDY(0);
+							((MovingEntity)f).setDX(-.1);
+							pacmanAniMain=pacmanAniLeft;
+							timer.start();
+						}
+						else if ((((Pman)f).getDirection().equals("left"))){
 							// intentionally blank
 						}else{
 							for(Entity g: worldfinaluse){
@@ -852,13 +871,14 @@ public class Pacman{
 		
 	}
 	public class Timers implements ActionListener{
-		protected String status;
+		protected String status = "scatter";
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			if(status.equals("scatter")){
 				status = "chase";
-			}else{
+			}
+			else if(status.equals("chase")){
 				status = "scatter";
 			}
 		}
