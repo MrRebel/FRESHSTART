@@ -145,14 +145,12 @@ public abstract class AbstractWordEntity extends AbstractEntity implements WordE
 		int tempx = 0;
 		for (int i = 0; i<word.toCharArray().length; i++){
 			String temp = "";
-			System.out.println("in");
 			if(type == Font.BOLD){
 				temp = "bold";
 			}
 			else if (type == Font.ITALIC){
 				temp = "italic";
 			}
-			System.out.println(word.toCharArray()[i]);
 			preloader.get(word.toCharArray()[i] + fontName + temp).drawString((int)getX() + tempx, (int)getY(),  "" + word.toCharArray()[i],Color.yellow);
 			tempx += preloader.get(word.toCharArray()[i] + fontName + temp).getWidth("" + word.toCharArray()[i]);
 		}

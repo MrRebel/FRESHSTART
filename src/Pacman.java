@@ -23,10 +23,14 @@ import static org.lwjgl.opengl.GL11.glVertex2d;
 import hopepac.WorldDemo;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import javax.swing.Timer;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
@@ -71,7 +75,11 @@ public class Pacman{
 		Entity save2 = new FourWayBlock(10,10,savestate);
 		Entity save3 = new FourWayBlock(10,10,savestate);
 		Entity save4 = new FourWayBlock(10,10,savestate);
+		Entity save5 = new FourWayBlock(10,10,savestate);
 		String[] fonts = {"Times New Roman"};
+		ActionListener taskPerformer = new Timers();
+		String saver = "scatter";
+		Timer timer = new Timer(7000, taskPerformer);
 		int[] types = {Font.PLAIN};
 		world.add(new Words(10,10,"p1 score " + score));
 		worldfinaluse = new CopyOnWriteArrayList<Entity>(world.giveArrayList());
@@ -123,11 +131,15 @@ public class Pacman{
 			if (x>13){
 				x=0;
 			}
+			//String temo = ((Timers) taskPerformer).getStatus();
+			//if ((!temo.equals(saver))){
+				//((Timer) taskPerformer).setDelay(30000);
+			//}
 			for (Entity f: worldfinaluse){
 				glColor3f(1f,1f,1f);
 				if (f instanceof Pman){
-					f.setX(Math.round(f.getX()));
-					f.setY(Math.round(f.getY()));
+					//f.setX(Math.round(f.getX()));
+					//f.setY(Math.round(f.getY()));
 					if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)){
 						((Pman)f).setChangeDirection("right");
 					}
@@ -142,6 +154,7 @@ public class Pacman{
 					}
 					for (Entity g: worldfinaluse){
 						if (g instanceof Ghost){
+							//((Ghost)g).setStatus(temo);
 							if(((Ghost)g).getName().equals("blinky")){
 								for(Entity h: worldfinaluse){
 									if(h instanceof FourWayBlock){
@@ -170,8 +183,6 @@ public class Pacman{
 								}
 							}
 							if(((Ghost)g).getName().equals("pinky")){
-								g.setX(Math.round(g.getX()));
-								g.setY(Math.round(g.getY()));
 								int gy = ((int)(f.getY()+10)/20);
 								int gx = ((int)(f.getX()+10)/20);
 								if (((Pman)f).getDirection().equals("up")){
@@ -226,8 +237,6 @@ public class Pacman{
 								}
 							}
 							if(((Ghost)g).getName().equals("inky")){
-								g.setX(Math.round(g.getX()));
-								g.setY(Math.round(g.getY()));
 								int gy = ((int)(f.getY()+10)/20);
 								int gx = ((int)(f.getX()+10)/20);
 								for (Entity i: worldfinaluse){
@@ -290,8 +299,6 @@ public class Pacman{
 								}
 							}
 							if(((Ghost)g).getName().equals("clyde")){
-								g.setX(Math.round(g.getX()));
-								g.setY(Math.round(g.getY()));
 								int gy = ((int)(f.getY()+10)/20);
 								int gx = ((int)(f.getX()+10)/20);
 								for(Entity h: worldfinaluse){
@@ -375,14 +382,19 @@ public class Pacman{
 						}else{
 							for(Entity g: worldfinaluse){
 								if(g instanceof FourWayBlock){
-									if((g.getX() == f.getX())&&(g.getY() == f.getY())){
+									if((g.getX()-3 < f.getX() && g.getX()+3 > f.getX())&&(g.getY()-3 < f.getY() && g.getY()+3 > f.getY())){
 										if (Arrays.asList(((FourWayBlock)g).getDirections()).contains("right")){
 											((Pman)f).setDirection(((Pman)f).getChangeDirection());
+											f.setX(g.getX());
+											f.setY(g.getY());
 											((MovingEntity)f).setDY(0);
 											((MovingEntity)f).setDX(.1);
-											f.setY(Math.round(f.getY()));
+											save5 = g;
 											pacmanAniMain=pacmanAniRight;
+											((Pman)f).setCorner(false);
 										}
+									}else if (!((save5.getX()-3 < f.getX() && save5.getX()+3 > f.getX())&&(save5.getY()-3 < f.getY() && save5.getY()+3 > f.getY()))){
+										((Pman)f).setCorner(true);
 									}
 								}
 							}
@@ -393,71 +405,83 @@ public class Pacman{
 							((Pman)f).setDirection(((Pman)f).getChangeDirection());
 							((MovingEntity)f).setDY(0);
 							((MovingEntity)f).setDX(-.1);
-							f.setY(Math.round(f.getY()));
 							pacmanAniMain=pacmanAniLeft;
 						}else if ((((Pman)f).getDirection().equals("left"))){
 							// intentionally blank
 						}else{
 							for(Entity g: worldfinaluse){
 								if(g instanceof FourWayBlock){
-									if((g.getX() == f.getX())&&(g.getY() == f.getY())){
+									if((g.getX()-3 < f.getX() && g.getX()+3 > f.getX())&&(g.getY()-3 < f.getY() && g.getY()+3 > f.getY())){
 										if (Arrays.asList(((FourWayBlock)g).getDirections()).contains("left")){
 											((Pman)f).setDirection(((Pman)f).getChangeDirection());
+											f.setX(g.getX());
+											f.setY(g.getY());
 											((MovingEntity)f).setDY(0);
 											((MovingEntity)f).setDX(-.1);
-											f.setY(Math.round(f.getY()));
+											save5 = g;
 											pacmanAniMain=pacmanAniLeft;
+											((Pman)f).setCorner(false);
 										}
+									}else if (!((save5.getX()-3 < f.getX() && save5.getX()+3 > f.getX())&&(save5.getY()-3 < f.getY() && save5.getY()+3 > f.getY()))){
+										((Pman)f).setCorner(true);
 									}
 								}
 							}
 						}
 					}
 					if ((((Pman)f).getChangeDirection().equals("up"))){
-						if((((Pman)f).getDirection().equals("down"))||(((Pman)f).getDirection().equals(""))){
+						if((((Pman)f).getDirection().equals("down"))){
 							((Pman)f).setDirection(((Pman)f).getChangeDirection());
 							((MovingEntity)f).setDX(0);
 							((MovingEntity)f).setDY(-.1);
-							f.setY(Math.round(f.getY()));
 							pacmanAniMain=pacmanAniUp;
 						}else if ((((Pman)f).getDirection().equals("up"))){
 							// intentionally blank
 						}else{
 							for(Entity g: worldfinaluse){
 								if(g instanceof FourWayBlock){
-									if((g.getX() == f.getX())&&(g.getY() == f.getY())){
+									if((g.getX()-3 < f.getX() && g.getX()+3 > f.getX())&&(g.getY()-3 < f.getY() && g.getY()+3 > f.getY())){
 										if (Arrays.asList(((FourWayBlock)g).getDirections()).contains("up")){
 											((Pman)f).setDirection(((Pman)f).getChangeDirection());
+											f.setX(g.getX());
+											f.setY(g.getY());
 											((MovingEntity)f).setDX(0);
 											((MovingEntity)f).setDY(-.1);
-											f.setY(Math.round(f.getY()));
+											save5 = g;
 											pacmanAniMain=pacmanAniUp;
+											((Pman)f).setCorner(false);
 										}
+									}else if (!((save5.getX()-3 < f.getX() && save5.getX()+3 > f.getX())&&(save5.getY()-3 < f.getY() && save5.getY()+3 > f.getY()))){
+										((Pman)f).setCorner(true);
 									}
 								}
 							}
 						}
 					}
 					else if ((((Pman)f).getChangeDirection().equals("down"))){
-						if((((Pman)f).getDirection().equals("up"))||(((Pman)f).getDirection().equals(""))){
+						if((((Pman)f).getDirection().equals("up"))){
 							((Pman)f).setDirection(((Pman)f).getChangeDirection());
 							((MovingEntity)f).setDX(0);
 							((MovingEntity)f).setDY(.1);
-							f.setY(Math.round(f.getY()));
 							pacmanAniMain=pacmanAniDown;
 						}else if ((((Pman)f).getDirection().equals("down"))){
 							// intentionally blank
 						}else{
 							for(Entity g: worldfinaluse){
 								if(g instanceof FourWayBlock){
-									if((g.getX() == f.getX())&&(g.getY() == f.getY())){
+									if((g.getX()-3 < f.getX() && g.getX()+3 > f.getX())&&(g.getY()-3 < f.getY() && g.getY()+3 > f.getY())&&((Pman)f).getCorner()){
 										if (Arrays.asList(((FourWayBlock)g).getDirections()).contains("down")){
 											((Pman)f).setDirection(((Pman)f).getChangeDirection());
+											f.setX(g.getX());
+											f.setY(g.getY());
 											((MovingEntity)f).setDX(0);
 											((MovingEntity)f).setDY(.1);
-											f.setY(Math.round(f.getY()));
+											save5 = g;
 											pacmanAniMain=pacmanAniDown;
+											((Pman)f).setCorner(false);
 										}
+									}else if (!((save5.getX()-3 < f.getX() && save5.getX()+3 > f.getX())&&(save5.getY()-3 < f.getY() && save5.getY()+3 > f.getY()))){
+										((Pman)f).setCorner(true);
 									}
 								}
 							}
@@ -686,6 +710,7 @@ public class Pacman{
 	public static class Pman extends AbstractMovingEntity{
 		protected String direction;
 		protected String changeDirection = "";
+		protected boolean corner;
 		public Pman(double x, double y, String tex, String direction) {
 			super(x, y, 40, 40, tex);
 			this.direction = direction;
@@ -712,11 +737,17 @@ public class Pacman{
 		public void setChangeDirection(String changeDirection){
 			this.changeDirection = changeDirection;
 		}
+		public void setCorner(boolean corner){
+			this.corner = corner;
+		}
 		public String getDirection(){
 			return direction;
 		}
 		public String getChangeDirection(){
 			return changeDirection;
+		}
+		public boolean getCorner(){
+			return corner;
 		}
 	}
 	public static class Catch extends AbstractBoundEntity{
@@ -817,6 +848,22 @@ public class Pacman{
 		public void update() {
 			// TODO Auto-generated method stub
 			
+		}
+		
+	}
+	public class Timers implements ActionListener{
+		protected String status;
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			if(status.equals("scatter")){
+				status = "chase";
+			}else{
+				status = "scatter";
+			}
+		}
+		public String getStatus(){
+			return status;
 		}
 		
 	}
