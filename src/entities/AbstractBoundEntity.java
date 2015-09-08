@@ -1,6 +1,11 @@
+/**
+ * @author William Christensen
+ * @date 6/18/15
+ * This is an implementation of the bound entity it can be bound to a certain entity
+ */
 package entities;
 
-public abstract class AbstractBoundEntity extends AbstractMovingEntity implements BoundEntity{
+public abstract class AbstractBoundEntity extends AbstractMovingEntity implements BoundEntity{ 
 
 	protected Entity other;
 	protected double distancex, distancey;
