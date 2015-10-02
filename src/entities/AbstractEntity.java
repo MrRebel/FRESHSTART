@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureImpl;
@@ -25,6 +26,7 @@ public abstract class AbstractEntity implements Entity{
 	protected String key = "";
 	protected TextureImpl tex;
 	protected Rectangle hitbox = new Rectangle();
+	protected HashMap preloaded = new HashMap <String, TextureImpl>(10);
 	//most basic implementation of the Entity
 	public AbstractEntity(double x,double y,double width,double height) {
 		this.x = x; //sets internal and external x to the same value
@@ -40,6 +42,7 @@ public abstract class AbstractEntity implements Entity{
 		this.height = height;
 		this.key = key;
 		tex = textureLoader(key);  //sets internal and external texture key to the same value
+		preloaded.put(key,tex);
 	}
 	@Override
 	public void setLocation(double x, double y) { // a method for setting the x and y values
@@ -69,8 +72,12 @@ public abstract class AbstractEntity implements Entity{
 
 	}
 	public void setTexture(String key){ // a method for setting the Texture key value
-		this.key = key;
-		tex = textureLoader(key);
+		if(preloaded.keySet().contains(key)){
+			tex = (TextureImpl) preloaded.get(key);
+		}else{
+			tex = textureLoader(key);
+			preloaded.put(key,tex);
+		}
 	}
 
 	@Override
@@ -95,7 +102,6 @@ public abstract class AbstractEntity implements Entity{
 		return key;
 	}
 	public TextureImpl getTexture(){ // a method for returning Texture
-		tex = textureLoader(key);
 		return tex;
 	}
 

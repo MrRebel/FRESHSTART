@@ -74,6 +74,7 @@ public class entityDemo {
 			Display.sync(60);
 		}
 		Display.destroy();
+		System.exit(0);
 	}
 	
 	//box object
