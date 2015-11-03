@@ -36,8 +36,11 @@ public class movementDemo {
 		glLoadIdentity();
 		glOrtho(0, 640, 480, 0, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
-		glEnable(GL_TEXTURE_2D);
-		
+		glEnable(GL_TEXTURE_2D);        
+		glDisable(GL_DEPTH_TEST);
+		glDisable(GL_LIGHTING);
+		glEnable(GL_BLEND);
+	    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		//code loop if the window is closed the loop will end
 		while(!Display.isCloseRequested()){
 			//Render
@@ -80,13 +83,14 @@ public class movementDemo {
 			//box.update(15);
 			box.draw();
 			test.draw();
-			
+			System.out.println(box.getX());
 			System.out.println("Colliding? "+ box.intersects(test));
 			
 			Display.update();
 			Display.sync(60);
 		}
 		Display.destroy();
+		System.exit(0);
 	}
 	
 	//box object

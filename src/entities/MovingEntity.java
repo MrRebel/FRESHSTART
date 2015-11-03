@@ -15,4 +15,5 @@ public interface MovingEntity extends Entity {
 	public double getDX();
 	public double getDY();
 	public int getDelta();
+	public boolean cIntersect(Entity other, int comp);
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractWorld implements world {
-	
 	protected List<Entity> world, orig;
 	protected List<MovingEntity> moveworld, moveorig;
 	protected List<GravityEntity> gravworld, gravorig;

@@ -61,7 +61,7 @@ public class gravityDemo {
 				box.setDX(-.1);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_4)){
-				box.setDY(-.1);
+				box.setDY(-3);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_5)){
 				box.setWidth(150);
@@ -78,6 +78,9 @@ public class gravityDemo {
 			if (Keyboard.isKeyDown(Keyboard.KEY_9)){
 				box.setGravC(.05); //changes gravity constant used for acceleration
 			}
+			if(box.cIntersect(test,10)){
+				System.out.println("Colliding? "+ true); //tests collision
+			}
 			if (box.getY() >= 480-box.getHeight() && box.getDY()>0){ //tests leaving bottom of the screen will bounce off the bottom unless controlled
 				box.setY(480-box.getHeight());
 				if (box.getDY()<.25){
@@ -86,21 +89,21 @@ public class gravityDemo {
 					box.setDY(-(box.getDY()/1.5));
 				}
 			}
+			//System.out.println(box.getDY());
 			//uses auto update feature
 			box.update();
 			/*
 			 * uncomment following section for equal move-rate for each frame no matter frame rate();
 			 */
 			//box.update(<integer>);
-			
-			System.out.println("Colliding? "+ box.intersects(test)); //tests collision
-			
 			box.draw();
 			test.draw();
 			
+			Display.sync(10);
 			Display.update();
 		}
 		Display.destroy();
+		System.exit(0);
 	}
 	
 	//box object

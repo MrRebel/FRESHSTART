@@ -13,7 +13,6 @@ package entities;
 import org.lwjgl.Sys;
 
 public abstract class AbstractMovingEntity extends AbstractEntity implements MovingEntity {
-	
 	protected double dx, dy; //dx and dy value instantiation 
 	//simplest form of MovingEntity
 	public AbstractMovingEntity(double x, double y, double width, double height) {
@@ -75,5 +74,25 @@ public abstract class AbstractMovingEntity extends AbstractEntity implements Mov
 		int delta = (int) (currentTime - lastFrame);
 		lastFrame = currentTime;
 		return delta;
+	}
+	
+	public boolean cIntersect(Entity other, int comp){
+		int delta = getDelta();
+		double[] save = {getX(), getY()};
+		boolean check = false;
+		setLocation(save[0]-(dx*delta), save[1]-(dy*delta));
+		setDX(getDX()/comp);
+		setDY(getDY()/comp);
+		for (int i = 0; i < comp; i++) {
+			update();
+			if(intersects(other)){
+				i = comp;
+				check = true;
+			}
+		}
+		setDX(dx*comp);
+		setDY(dy*comp);
+		setLocation(save[0]+dx*delta, save[1]+dy*delta);
+		return check;
 	}
 }
