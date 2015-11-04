@@ -30,7 +30,7 @@ public class gravityDemo {
 		}
 		
 		
-		GravityEntity box = new Box (15,15,100,100, "wood"); //changing box
+		GravityEntity box = new Box (15,200,100,100, "wood"); //changing box
 		Entity test = new Box (200,200,100,100, "wood"); //reference box
 		//Set up Window
 		glMatrixMode(GL_PROJECTION);
@@ -61,7 +61,7 @@ public class gravityDemo {
 				box.setDX(-.1);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_4)){
-				box.setDY(-3);
+				box.setDY(-5);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_5)){
 				box.setWidth(150);
@@ -99,7 +99,7 @@ public class gravityDemo {
 			box.draw();
 			test.draw();
 			
-			Display.sync(10);
+			Display.sync(15);
 			Display.update();
 		}
 		Display.destroy();

@@ -81,10 +81,15 @@ public abstract class AbstractMovingEntity extends AbstractEntity implements Mov
 		double[] save = {getX(), getY()};
 		boolean check = false;
 		setLocation(save[0]-(dx*delta), save[1]-(dy*delta));
-		setDX(getDX()/comp);
-		setDY(getDY()/comp);
+		//System.out.println(dy);
+		dx = (dx/comp);
+		dy = (dy/comp);
+		//System.out.println(dy);
 		for (int i = 0; i < comp; i++) {
-			update();
+			//System.out.println(y);
+			y += dy*delta;
+			x += dx*delta;
+			//System.out.println(y);
 			if(intersects(other)){
 				i = comp;
 				check = true;

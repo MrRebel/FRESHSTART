@@ -57,11 +57,12 @@ public abstract class AbstractGravityEntity extends AbstractMovingEntity impleme
 	}
 	
 	public double Gravity (double firstdy){
+		int delta = this.getDelta();
 		while (first){
 			first = false;
 			return firstdy;
 		}
-		firstdy+=c;
+		firstdy+=c*delta;
 		if (firstdy>maxdy){ 
 			firstdy=maxdy;
 			return firstdy;
